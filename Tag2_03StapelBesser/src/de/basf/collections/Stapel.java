@@ -5,14 +5,14 @@ public class Stapel {
 	private Object [] data;
 	private int index;
 	
-	public Stapel() {
-		data = new Object[10];
-		index = 0;
+	public Stapel() throws StapelException {
+		this(DEFAULT_SIZE);
 	}
 	
-	public Stapel(int size) {
-		
-		data = new Object[size < 1? DEFAULT_SIZE: size];
+	public Stapel(int size) throws StapelException {
+		if(size < 1)
+			throw new StapelException("Init");
+		data = new Object[size];
 		index = 0;
 	}
 	
@@ -23,8 +23,8 @@ public class Stapel {
 		data[index++] = value;
 	}
 	
-	public Object pop() {
-		if(isEmpty())	return null;
+	public Object pop() throws StapelException {
+		if(isEmpty())	throw new StapelException("Underflow");
 		
 		return data[--index];
 	}
