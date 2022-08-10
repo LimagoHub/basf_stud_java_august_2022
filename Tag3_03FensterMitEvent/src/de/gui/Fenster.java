@@ -4,8 +4,10 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class Fenster extends Frame implements KeyListener{
+public class Fenster extends Frame implements KeyListener, MouseMotionListener{
 	
 	private static final int SIZE = 500;
 	private String message = "Hallo Fenster";
@@ -15,6 +17,7 @@ public class Fenster extends Frame implements KeyListener{
 	public Fenster() {
 		x = y = SIZE/2;
 		addKeyListener(this);
+		addMouseMotionListener(this);
 		
 		setSize(SIZE, SIZE);
 		setVisible(true);
@@ -60,6 +63,19 @@ public class Fenster extends Frame implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		x += (e.getX() - x) / 20;
+		y += (e.getY() - y) / 20;
+		repaint();
 	}
 
 }
