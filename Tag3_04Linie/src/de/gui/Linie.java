@@ -7,13 +7,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 public class Linie extends Frame {
 
-	private int x1,x2,y1,y2;
+	
+	private final static int SIZE = 500;
+	// Schattenfenster
+	private BufferedImage image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
 	public Linie() {
-		
-		x1 = x2 = y1 = y2 = -1;
 		addMouseListener(new MyMouseListener());
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -21,33 +23,30 @@ public class Linie extends Frame {
 				dispose();
 			}
 		});
-		setSize(500,500);
+		setSize(SIZE,SIZE);
+		setResizable(false);
 		setVisible(true);
 	}
 	
 	@Override
 	public void paint(Graphics g) {
-		g.drawLine(x1, y1, x2, y2);
+		g.drawImage(image, 0,0, SIZE,SIZE, this);
 	}
-	
 	public static void main(String[] args) {
 		new Linie();
-
 	}
-
 	class MyMouseListener extends MouseAdapter {
-
+		private int x,y;
 		@Override
 		public void mousePressed(MouseEvent e) {
-			x1 = e.getX();
-			y1 = e.getY();
+			x = e.getX();
+			y = e.getY();
 		}
-
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			x2 = e.getX();
-			y2 = e.getY();
-			Linie.this.repaint();
+			Graphics schattenfenster = image.getGraphics();
+			schattenfenster.drawLine(x, y, e.getX(), e.getY());
+			repaint();
 		}
 		
 	}
