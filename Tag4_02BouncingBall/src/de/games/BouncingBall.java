@@ -52,7 +52,8 @@ public class BouncingBall extends Frame{
 	private void renderScene() {
 		Graphics g = strategy.getDrawGraphics();
 		g.setColor(Color.RED);
-		g.clearRect(0, 0, getWidth(), getHeight());
+		//g.clearRect(0, 0, getWidth(), getHeight());
+		g.setXORMode(Color.BLUE);
 		g.fillOval(x-10, y-10, 20, 20);
 		g.dispose();
 		strategy.show();
