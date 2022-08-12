@@ -13,8 +13,17 @@ public class ListeImpl<T> implements Liste<T> {
 
 	@Override
 	public void append(T value) {
-		// TODO Auto-generated method stub
-		
+		Kettenglied<T> neu = new Kettenglied<>(value);
+		if(isEmpty()) {
+			start = neu;
+			
+		} else {
+			moveLast();
+			neu.vor = akt;
+			akt.nach = neu;
+			
+		}
+		akt = neu;
 	}
 
 	@Override
@@ -61,20 +70,20 @@ public class ListeImpl<T> implements Liste<T> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return start == null;
 	}
 
 	@Override
 	public boolean isEol() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return isEmpty() || akt.nach == null;
 	}
 
 	@Override
 	public boolean isBol() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return isEmpty() || akt.vor == null;
 	}
 
 	class Kettenglied<T> {
